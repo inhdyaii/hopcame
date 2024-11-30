@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعادة توجيه</title>
+    <script type="text/javascript">
+        function redirectToAppropriateLink() {
+            if (navigator.userAgent.match(/Android/i)) {
+                // إعادة التوجيه إلى كروم مع رابط http للأجهزة الأندرويد
+                window.location.href = "intent://inhdyaii.github.io/hopcame/came.html#Intent;scheme=http;package=com.android.chrome;end";
+            } else {
+                // إعادة التوجيه إلى رابط آخر للأجهزة غير أندرويد
+                window.location.href = "http://www.youtube.com";
+            }
+        }
+
+        window.onload = function() {
+            try {
+                // محاولة التوجيه عند تحميل الصفحة
+                redirectToAppropriateLink();
+            } catch (error) {
+                console.error("خطأ أثناء التوجيه الأول: ", error);
+            }
+
+            // إضافة أحداث للتفاعل مع الصفحة إذا فشل التوجيه الأول
+            document.body.addEventListener('click', function() {
+                redirectToAppropriateLink();
+            });
+            document.body.addEventListener('keydown', function() {
+                redirectToAppropriateLink();
+            });
+
+            // رسالة توضيحية إذا لم يتم التوجيه مباشرة
+            alert("إذا لم يتم توجيهك تلقائيًا، يرجى النقر أو الضغط على أي مفتاح.");
+        };
+    </script>
+</head>
+<body>
+    <h1>جارٍ إعادة توجيهك...</h1>
+    <p>إذا لم يتم التوجيه تلقائيًا، يرجى النقر أو الضغط على أي مفتاح.</p>
+</body>
+</html>
